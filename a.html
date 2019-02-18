@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>系统发生错误</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <style>
+        /* Base */
+        body {
+            color: #333;
+            font: 16px Verdana, "Helvetica Neue", helvetica, Arial, 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0 20px 20px;
+        }
+        h1{
+            margin: 10px 0 0;
+            font-size: 28px;
+            font-weight: 500;
+            line-height: 32px;
+        }
+        h2{
+            color: #4288ce;
+            font-weight: 400;
+            padding: 6px 0;
+            margin: 6px 0 0;
+            font-size: 18px;
+            border-bottom: 1px solid #eee;
+        }
+        h3{
+            margin: 12px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        abbr{
+            cursor: help;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+        a{
+            color: #868686;
+            cursor: pointer;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        .line-error{
+            background: #f8cbcb;
+        }
+
+        .echo table {
+            width: 100%;
+        }
+
+        .echo pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f7f7f7;
+            border: 0;
+            border-radius: 3px;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        .echo pre > pre {
+            padding: 0;
+            margin: 0;
+        }
+    
+        /* Exception Info */
+        .exception {
+            margin-top: 20px;
+        }
+        .exception .message{
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-bottom: 0 none;
+            line-height: 18px;
+            font-size:16px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            font-family: Consolas,"Liberation Mono",Courier,Verdana,"微软雅黑";
+        }
+
+        .exception .code{
+            float: left;
+            text-align: center;
+            color: #fff;
+            margin-right: 12px;
+            padding: 16px;
+            border-radius: 4px;
+            background: #999;
+        }
+        .exception .source-code{
+            padding: 6px;
+            border: 1px solid #ddd;
+
+            background: #f9f9f9;
+            overflow-x: auto;
+
+        }
+        .exception .source-code pre{
+            margin: 0;
+        }
+        .exception .source-code pre ol{
+            margin: 0;
+            color: #4288ce;
+            display: inline-block;
+            min-width: 100%;
+            box-sizing: border-box;
+        font-size:14px;
+            font-family: "Century Gothic",Consolas,"Liberation Mono",Courier,Verdana;
+            padding-left: 56px;
+        }
+        .exception .source-code pre li{
+            border-left: 1px solid #ddd;
+            height: 18px;
+            line-height: 18px;
+        }
+        .exception .source-code pre code{
+            color: #333;
+            height: 100%;
+            display: inline-block;
+            border-left: 1px solid #fff;
+        font-size:14px;
+            font-family: Consolas,"Liberation Mono",Courier,Verdana,"微软雅黑";
+        }
+        .exception .trace{
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-top: 0 none;
+            line-height: 16px;
+        font-size:14px;
+            font-family: Consolas,"Liberation Mono",Courier,Verdana,"微软雅黑";
+        }
+        .exception .trace ol{
+            margin: 12px;
+        }
+        .exception .trace ol li{
+            padding: 2px 4px;
+        }
+        .exception div:last-child{
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* Exception Variables */
+        .exception-var table{
+            width: 100%;
+            margin: 12px 0;
+            box-sizing: border-box;
+            table-layout:fixed;
+            word-wrap:break-word;            
+        }
+        .exception-var table caption{
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 6px 0;
+        }
+        .exception-var table caption small{
+            font-weight: 300;
+            display: inline-block;
+            margin-left: 10px;
+            color: #ccc;
+        }
+        .exception-var table tbody{
+            font-size: 13px;
+            font-family: Consolas,"Liberation Mono",Courier,"微软雅黑";
+        }
+        .exception-var table td{
+            padding: 0 6px;
+            vertical-align: top;
+            word-break: break-all;
+        }
+        .exception-var table td:first-child{
+            width: 28%;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .exception-var table td pre{
+            margin: 0;
+        }
+
+        /* Copyright Info */
+        .copyright{
+            margin-top: 24px;
+            padding: 12px 0;
+            border-top: 1px solid #eee;
+        }
+
+        /* SPAN elements with the classes below are added by prettyprint. */
+        pre.prettyprint .pln { color: #000 }  /* plain text */
+        pre.prettyprint .str { color: #080 }  /* string content */
+        pre.prettyprint .kwd { color: #008 }  /* a keyword */
+        pre.prettyprint .com { color: #800 }  /* a comment */
+        pre.prettyprint .typ { color: #606 }  /* a type name */
+        pre.prettyprint .lit { color: #066 }  /* a literal value */
+        /* punctuation, lisp open bracket, lisp close bracket */
+        pre.prettyprint .pun, pre.prettyprint .opn, pre.prettyprint .clo { color: #660 }
+        pre.prettyprint .tag { color: #008 }  /* a markup tag name */
+        pre.prettyprint .atn { color: #606 }  /* a markup attribute name */
+        pre.prettyprint .atv { color: #080 }  /* a markup attribute value */
+        pre.prettyprint .dec, pre.prettyprint .var { color: #606 }  /* a declaration; a variable name */
+        pre.prettyprint .fun { color: red }  /* a function name */
+    </style>
+</head>
+<body>
+    <div class="echo">
+            </div>
+        <div class="exception">
+    <div class="message">
+        
+            <div class="info">
+                <div>
+                    <h2>[2] <abbr title="think\exception\ErrorException">ErrorException</abbr> in <a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\lib\Mt4.php line 103">Mt4.php line 103</a></h2>
+                </div>
+                <div><h1>Unknown: Could not convert string to unicode: `�ڶ��ֽڵ�Ŀ����ҳ�У�&ucirc;�д� Unicode �ַ�����ӳ�䵽���ַ���<br />
+'</h1></div>
+            </div>
+        
+    </div>
+	        <div class="source-code">
+            <pre class="prettyprint lang-php"><ol start="94"><li class="line-94"><code>        $info = $this-&gt;instance-&gt;GetGroups();
+</code></li><li class="line-95"><code>        $this-&gt;log-&gt;log_append(&quot;return:&quot;.$info.&quot; msg:&quot;.$this-&gt;_getCodeMsg($info));
+</code></li><li class="line-96"><code>        $this-&gt;log-&gt;log_file_ext('MT4API');
+</code></li><li class="line-97"><code>        return array('ret'=&gt;$info, 'info' =&gt; $this-&gt;_getCodeMsg($info));
+</code></li><li class="line-98"><code>    }
+</code></li><li class="line-99"><code>   public function NewAccount($loginid,$password,$username,$group,$agent,$email,$leverage,$idcardno,$phone)
+</code></li><li class="line-100"><code>   {
+</code></li><li class="line-101"><code>//              $map = ['id'=&gt;7563,'mtserver'=&gt;3,'group'=&gt;80111,'leverage'=&gt;100,'name'=&gt;'余陈MT4测试1','loginid'=&gt;'123123','password'=&gt;''];
+</code></li><li class="line-102"><code>        $this-&gt;log-&gt;log_append(&quot;method:NewAccount args:&quot;.$loginid.&quot;|&quot;.$password.&quot;|&quot;.$username.&quot;|&quot;.$group.&quot;|&quot;.$agent.'|'.$email.'|'.$leverage.'|'.$idcardno.'|'.$phone);
+</code></li><li class="line-103"><code>        $result=$this-&gt;instance-&gt;NewAccount($loginid,$password,$username,$group,$agent,$email,$leverage,$idcardno,$phone);
+</code></li><li class="line-104"><code>        $this-&gt;log-&gt;log_append(&quot;return:&quot;.$result.&quot; msg:&quot;.$this-&gt;_getCodeMsg($result));
+</code></li><li class="line-105"><code>        $this-&gt;log-&gt;log_file_ext('MT4API');
+</code></li><li class="line-106"><code>        return array('ret'=&gt;$result, 'info' =&gt; $this-&gt;_getCodeMsg($result));
+</code></li><li class="line-107"><code>    }
+</code></li><li class="line-108"><code>    public function Release()
+</code></li><li class="line-109"><code>    {
+</code></li><li class="line-110"><code>        $this-&gt;log-&gt;log_append(&quot;method:close&quot;);
+</code></li><li class="line-111"><code>        $info = $this-&gt;instance-&gt;Releaselt();
+</code></li><li class="line-112"><code>        $this-&gt;log-&gt;log_append(&quot;return:&quot;.$info.' msg:'.$this-&gt;_getCodeMsg($info));
+</code></li></ol></pre>
+        </div>
+	        <div class="trace">
+            <h2>Call Stack</h2>
+            <ol>
+                <li>in <a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\lib\Mt4.php line 103">Mt4.php line 103</a></li>
+                                <li>
+                at <abbr title="think\Error">Error</abbr>::appError(2, '<a class="toggle" title="Unknown: Could not convert string to unicode: `�ڶ��ֽڵ�Ŀ����ҳ�У�&ucirc;�д� Unicode �ַ�����ӳ�䵽���ַ���
+'">Unknown: Could not c...</a>', '<a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\lib\Mt4.php">D:\phpStudy\WWW\crm-...</a>', 103, ['loginid' => 0, 'password' => 'aaa123', 'username' => '<a class="toggle" title="重复测试第三次">...</a>', ...])                </li>
+                                <li>
+                at <abbr title="com">com</abbr>->NewAccount(0, 'aaa123', '<a class="toggle" title="重复测试第三次">...</a>', '5-0', 0, '420443482@qq.com', 100, '430682199412180078', '18774127177') in <a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\lib\Mt4.php line 103">Mt4.php line 103</a>                </li>
+                                <li>
+                at <abbr title="app\lib\Mt4">Mt4</abbr>->NewAccount(0, 'aaa123', '<a class="toggle" title="重复测试第三次">...</a>', '5-0', 0, '420443482@qq.com', 100, '430682199412180078', '18774127177') in <a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\client\controller\Register.php line 58">Register.php line 58</a>                </li>
+                                <li>
+                at <abbr title="app\client\controller\Register">Register</abbr>->mt_open_account(['name' => '<a class="toggle" title="重复测试第三次">...</a>', 'mobile' => '18774127177', 'email' => '420443482@qq.com', ...]) in <a class="toggle" title="D:\phpStudy\WWW\crm-new\apps\client\controller\Register.php line 156">Register.php line 156</a>                </li>
+                                <li>
+                at <abbr title="app\client\controller\Register">Register</abbr>->insert()                </li>
+                                <li>
+                at <abbr title="ReflectionMethod">ReflectionMethod</abbr>->invokeArgs(<em>object</em>(<abbr title="app\client\controller\Register">Register</abbr>), []) in <a class="toggle" title="D:\phpStudy\WWW\crm-new\framework\library\think\App.php line 224">App.php line 224</a>                </li>
+                                <li>
+                at <abbr title="think\App">App</abbr>::invokeMethod([<em>object</em>(<abbr title="app\client\controller\Register">Register</abbr>), 'insert'], []) in <a class="toggle" title="D:\phpStudy\WWW\crm-new\framework\library\think\App.php line 389">App.php line 389</a>                </li>
+                                <li>
+                at <abbr title="think\App">App</abbr>::module(['client', 'register', 'insert'], ['app_namespace' => 'app', 'app_debug' => <em>true</em>, 'app_trace' => <em>false</em>, ...], <em>null</em>) in <a class="toggle" title="D:\phpStudy\WWW\crm-new\framework\library\think\App.php line 130">App.php line 130</a>                </li>
+                                <li>
+                at <abbr title="think\App">App</abbr>::run() in <a class="toggle" title="D:\phpStudy\WWW\crm-new\framework\start.php line 18">start.php line 18</a>                </li>
+                                <li>
+                at require('<a class="toggle" title="D:\phpStudy\WWW\crm-new\framework\start.php">D:\phpStudy\WWW\crm-...</a>') in <a class="toggle" title="D:\phpStudy\WWW\crm-new\public\index.php line 18">index.php line 18</a>                </li>
+                            </ol>
+        </div>
+    </div>
+        
+        <div class="exception-var">
+        <h2>Exception Datas</h2>
+                <table>
+                        <caption>Error Context</caption>
+            <tbody>
+                                <tr>
+                    <td>loginid</td>
+                    <td>
+                        0                    </td>
+                </tr>
+                                <tr>
+                    <td>password</td>
+                    <td>
+                        aaa123                    </td>
+                </tr>
+                                <tr>
+                    <td>username</td>
+                    <td>
+                        重复测试第三次                    </td>
+                </tr>
+                                <tr>
+                    <td>group</td>
+                    <td>
+                        5-0                    </td>
+                </tr>
+                                <tr>
+                    <td>agent</td>
+                    <td>
+                        0                    </td>
+                </tr>
+                                <tr>
+                    <td>email</td>
+                    <td>
+                        420443482@qq.com                    </td>
+                </tr>
+                                <tr>
+                    <td>leverage</td>
+                    <td>
+                        100                    </td>
+                </tr>
+                                <tr>
+                    <td>idcardno</td>
+                    <td>
+                        430682199412180078                    </td>
+                </tr>
+                                <tr>
+                    <td>phone</td>
+                    <td>
+                        18774127177                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+            </div>
+    
+        <div class="exception-var">
+        <h2>Environment Variables</h2>
+                <table>
+                        <caption>GET Data<small>empty</small></caption>
+                    </table>
+                <table>
+                        <caption>POST Data</caption>
+            <tbody>
+                                <tr>
+                    <td>agent_type</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>user_name</td>
+                    <td>
+                        重复测试第三次                    </td>
+                </tr>
+                                <tr>
+                    <td>user_phone</td>
+                    <td>
+                        18774127177                    </td>
+                </tr>
+                                <tr>
+                    <td>user_email</td>
+                    <td>
+                        420443482@qq.com                    </td>
+                </tr>
+                                <tr>
+                    <td>user_code</td>
+                    <td>
+                        510011                    </td>
+                </tr>
+                                <tr>
+                    <td>card_num</td>
+                    <td>
+                        430682199412180078                    </td>
+                </tr>
+                                <tr>
+                    <td>user_password</td>
+                    <td>
+                        aaa123                    </td>
+                </tr>
+                                <tr>
+                    <td>password_confirm</td>
+                    <td>
+                        aaa123                    </td>
+                </tr>
+                                <tr>
+                    <td>yzm</td>
+                    <td>
+                        234                    </td>
+                </tr>
+                                <tr>
+                    <td>phone_yzm</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>check</td>
+                    <td>
+                        on                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+                <table>
+                        <caption>Files<small>empty</small></caption>
+                    </table>
+                <table>
+                        <caption>Cookies</caption>
+            <tbody>
+                                <tr>
+                    <td>PHPSESSID</td>
+                    <td>
+                        bqja2dpg216u56ku7lk8ukhfp5                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+                <table>
+                        <caption>Session</caption>
+            <tbody>
+                                <tr>
+                    <td>s_mt4_client</td>
+                    <td>
+                        {
+    &quot;__000001__&quot;: {
+        &quot;AGENT_WELCOME&quot;: &quot;\/client\/index\/welcome&quot;,
+        &quot;APPLY_CHECK_ON-OF&quot;: &quot;1&quot;,
+        &quot;APPLY_DEF_GROUP_AGENT&quot;: &quot;8011&quot;,
+        &quot;APPLY_DEF_GROUP_CLIENT&quot;: &quot;5-0&quot;,
+        &quot;APPLY_DEF_GROUP_RECOM&quot;: &quot;8011&quot;,
+        &quot;APPLY_EMAIL_ON-OF&quot;: &quot;1&quot;,
+        &quot;APPLY_MOBILE_ON-OF&quot;: &quot;1&quot;,
+        &quot;ARRAY_ON-OFF&quot;: &quot;APPLY_CHECK_ON-OF,APPLY_EMAIL_ON-OF,APPLY_MOBILE_ON-OF&quot;,
+        &quot;BASE_RATE&quot;: &quot;7.1&quot;,
+        &quot;DEFALUT_UPMTLOGIN&quot;: &quot;75&quot;,
+        &quot;INMONEY_FEERATE&quot;: &quot;0&quot;,
+        &quot;IN_MONEY_RATE&quot;: &quot;7&quot;,
+        &quot;MTADMIN_WELCOME&quot;: &quot;\/mtadmin\/index\/welcome&quot;,
+        &quot;MT_PASSWORD_KEY&quot;: &quot;3&quot;,
+        &quot;NEWACCOUNT_MAX_NUM&quot;: &quot;2123481143&quot;,
+        &quot;NEWACCOUNT_MIN_NUM&quot;: &quot;1&quot;,
+        &quot;OUTMONEY_FEERATE&quot;: &quot;1&quot;,
+        &quot;OUT_MONEY_RATE_HKD&quot;: &quot;7.5&quot;,
+        &quot;OUT_MONEY_RATE_RMB&quot;: &quot;7&quot;
+    }
+}                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+                <table>
+                        <caption>Server/Request Data</caption>
+            <tbody>
+                                <tr>
+                    <td>PROCESSOR_ARCHITEW6432</td>
+                    <td>
+                        AMD64                    </td>
+                </tr>
+                                <tr>
+                    <td>_FCGI_X_PIPE_</td>
+                    <td>
+                        \\.\pipe\IISFCGI-79f040ce-eeca-4e48-b112-547fc8f18608                    </td>
+                </tr>
+                                <tr>
+                    <td>PHPRC</td>
+                    <td>
+                        D:\phpStudy\php\php-5.6.27-nts\                    </td>
+                </tr>
+                                <tr>
+                    <td>ALLUSERSPROFILE</td>
+                    <td>
+                        C:\ProgramData                    </td>
+                </tr>
+                                <tr>
+                    <td>APPDATA</td>
+                    <td>
+                        C:\Windows\system32\config\systemprofile\AppData\Roaming                    </td>
+                </tr>
+                                <tr>
+                    <td>APP_POOL_CONFIG</td>
+                    <td>
+                        C:\inetpub\temp\apppools\net.crmnew.com\net.crmnew.com.config                    </td>
+                </tr>
+                                <tr>
+                    <td>APP_POOL_ID</td>
+                    <td>
+                        net.crmnew.com                    </td>
+                </tr>
+                                <tr>
+                    <td>CommonProgramFiles</td>
+                    <td>
+                        C:\Program Files (x86)\Common Files                    </td>
+                </tr>
+                                <tr>
+                    <td>CommonProgramFiles(x86)</td>
+                    <td>
+                        C:\Program Files (x86)\Common Files                    </td>
+                </tr>
+                                <tr>
+                    <td>CommonProgramW6432</td>
+                    <td>
+                        C:\Program Files\Common Files                    </td>
+                </tr>
+                                <tr>
+                    <td>COMPUTERNAME</td>
+                    <td>
+                        WINDOWS-P3J4PFC                    </td>
+                </tr>
+                                <tr>
+                    <td>ComSpec</td>
+                    <td>
+                        C:\Windows\system32\cmd.exe                    </td>
+                </tr>
+                                <tr>
+                    <td>FP_NO_HOST_CHECK</td>
+                    <td>
+                        NO                    </td>
+                </tr>
+                                <tr>
+                    <td>LOCALAPPDATA</td>
+                    <td>
+                        C:\Windows\system32\config\systemprofile\AppData\Local                    </td>
+                </tr>
+                                <tr>
+                    <td>NUMBER_OF_PROCESSORS</td>
+                    <td>
+                        4                    </td>
+                </tr>
+                                <tr>
+                    <td>OS</td>
+                    <td>
+                        Windows_NT                    </td>
+                </tr>
+                                <tr>
+                    <td>Path</td>
+                    <td>
+                        C:\Program Files\nodejs\node_modules;D:\nodejs\;C:\Program Files\Microsoft\Web Platform Installer\;                    </td>
+                </tr>
+                                <tr>
+                    <td>PATHEXT</td>
+                    <td>
+                        .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC                    </td>
+                </tr>
+                                <tr>
+                    <td>PROCESSOR_ARCHITECTURE</td>
+                    <td>
+                        x86                    </td>
+                </tr>
+                                <tr>
+                    <td>PROCESSOR_IDENTIFIER</td>
+                    <td>
+                        Intel64 Family 6 Model 60 Stepping 3, GenuineIntel                    </td>
+                </tr>
+                                <tr>
+                    <td>PROCESSOR_LEVEL</td>
+                    <td>
+                        6                    </td>
+                </tr>
+                                <tr>
+                    <td>PROCESSOR_REVISION</td>
+                    <td>
+                        3c03                    </td>
+                </tr>
+                                <tr>
+                    <td>ProgramData</td>
+                    <td>
+                        C:\ProgramData                    </td>
+                </tr>
+                                <tr>
+                    <td>ProgramFiles</td>
+                    <td>
+                        C:\Program Files (x86)                    </td>
+                </tr>
+                                <tr>
+                    <td>ProgramFiles(x86)</td>
+                    <td>
+                        C:\Program Files (x86)                    </td>
+                </tr>
+                                <tr>
+                    <td>ProgramW6432</td>
+                    <td>
+                        C:\Program Files                    </td>
+                </tr>
+                                <tr>
+                    <td>PSModulePath</td>
+                    <td>
+                        C:\Windows\system32\WindowsPowerShell\v1.0\Modules\                    </td>
+                </tr>
+                                <tr>
+                    <td>PUBLIC</td>
+                    <td>
+                        C:\Users\Public                    </td>
+                </tr>
+                                <tr>
+                    <td>SystemDrive</td>
+                    <td>
+                        C:                    </td>
+                </tr>
+                                <tr>
+                    <td>SystemRoot</td>
+                    <td>
+                        C:\Windows                    </td>
+                </tr>
+                                <tr>
+                    <td>TEMP</td>
+                    <td>
+                        C:\Windows\TEMP                    </td>
+                </tr>
+                                <tr>
+                    <td>TMP</td>
+                    <td>
+                        C:\Windows\TEMP                    </td>
+                </tr>
+                                <tr>
+                    <td>USERDOMAIN</td>
+                    <td>
+                        WORKGROUP                    </td>
+                </tr>
+                                <tr>
+                    <td>USERNAME</td>
+                    <td>
+                        WINDOWS-P3J4PFC$                    </td>
+                </tr>
+                                <tr>
+                    <td>USERPROFILE</td>
+                    <td>
+                        C:\Windows\system32\config\systemprofile                    </td>
+                </tr>
+                                <tr>
+                    <td>windir</td>
+                    <td>
+                        C:\Windows                    </td>
+                </tr>
+                                <tr>
+                    <td>windows_tracing_flags</td>
+                    <td>
+                        3                    </td>
+                </tr>
+                                <tr>
+                    <td>windows_tracing_logfile</td>
+                    <td>
+                        C:\BVTBin\Tests\installpackage\csilogfile.log                    </td>
+                </tr>
+                                <tr>
+                    <td>ORIG_PATH_INFO</td>
+                    <td>
+                        /index.php/client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>URL</td>
+                    <td>
+                        /index.php                    </td>
+                </tr>
+                                <tr>
+                    <td>SERVER_SOFTWARE</td>
+                    <td>
+                        Microsoft-IIS/7.5                    </td>
+                </tr>
+                                <tr>
+                    <td>SERVER_PROTOCOL</td>
+                    <td>
+                        HTTP/1.1                    </td>
+                </tr>
+                                <tr>
+                    <td>SERVER_PORT_SECURE</td>
+                    <td>
+                        0                    </td>
+                </tr>
+                                <tr>
+                    <td>SERVER_PORT</td>
+                    <td>
+                        80                    </td>
+                </tr>
+                                <tr>
+                    <td>SERVER_NAME</td>
+                    <td>
+                        net.crmnew.com                    </td>
+                </tr>
+                                <tr>
+                    <td>SCRIPT_NAME</td>
+                    <td>
+                        /index.php                    </td>
+                </tr>
+                                <tr>
+                    <td>SCRIPT_FILENAME</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\public\index.php                    </td>
+                </tr>
+                                <tr>
+                    <td>REQUEST_URI</td>
+                    <td>
+                        /client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>REQUEST_METHOD</td>
+                    <td>
+                        POST                    </td>
+                </tr>
+                                <tr>
+                    <td>REMOTE_USER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>REMOTE_PORT</td>
+                    <td>
+                        49804                    </td>
+                </tr>
+                                <tr>
+                    <td>REMOTE_HOST</td>
+                    <td>
+                        127.0.0.1                    </td>
+                </tr>
+                                <tr>
+                    <td>REMOTE_ADDR</td>
+                    <td>
+                        127.0.0.1                    </td>
+                </tr>
+                                <tr>
+                    <td>QUERY_STRING</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>PATH_TRANSLATED</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\public\index.php\client\register\insert                    </td>
+                </tr>
+                                <tr>
+                    <td>PATH_INFO</td>
+                    <td>
+                        /client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>LOGON_USER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>LOCAL_ADDR</td>
+                    <td>
+                        127.0.0.1                    </td>
+                </tr>
+                                <tr>
+                    <td>INSTANCE_META_PATH</td>
+                    <td>
+                        /LM/W3SVC/4                    </td>
+                </tr>
+                                <tr>
+                    <td>INSTANCE_NAME</td>
+                    <td>
+                        NET.CRMNEW.COM                    </td>
+                </tr>
+                                <tr>
+                    <td>INSTANCE_ID</td>
+                    <td>
+                        4                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTPS_SERVER_SUBJECT</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>HTTPS_SERVER_ISSUER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>HTTPS_SECRETKEYSIZE</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>HTTPS_KEYSIZE</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>HTTPS</td>
+                    <td>
+                        off                    </td>
+                </tr>
+                                <tr>
+                    <td>GATEWAY_INTERFACE</td>
+                    <td>
+                        CGI/1.1                    </td>
+                </tr>
+                                <tr>
+                    <td>DOCUMENT_ROOT</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\public                    </td>
+                </tr>
+                                <tr>
+                    <td>CONTENT_TYPE</td>
+                    <td>
+                        application/x-www-form-urlencoded; charset=UTF-8                    </td>
+                </tr>
+                                <tr>
+                    <td>CONTENT_LENGTH</td>
+                    <td>
+                        256                    </td>
+                </tr>
+                                <tr>
+                    <td>CERT_SUBJECT</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>CERT_SERIALNUMBER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>CERT_ISSUER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>CERT_FLAGS</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>CERT_COOKIE</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>AUTH_USER</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>AUTH_PASSWORD</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>AUTH_TYPE</td>
+                    <td>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td>APPL_PHYSICAL_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\public\                    </td>
+                </tr>
+                                <tr>
+                    <td>APPL_MD_PATH</td>
+                    <td>
+                        /LM/W3SVC/4/ROOT                    </td>
+                </tr>
+                                <tr>
+                    <td>IIS_UrlRewriteModule</td>
+                    <td>
+                        7.1.1980.0                    </td>
+                </tr>
+                                <tr>
+                    <td>UNENCODED_URL</td>
+                    <td>
+                        /client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>IIS_WasUrlRewritten</td>
+                    <td>
+                        1                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_X_ORIGINAL_URL</td>
+                    <td>
+                        /client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_X_REQUESTED_WITH</td>
+                    <td>
+                        XMLHttpRequest                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_ORIGIN</td>
+                    <td>
+                        http://net.crmnew.com                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_USER_AGENT</td>
+                    <td>
+                        Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_REFERER</td>
+                    <td>
+                        http://net.crmnew.com/client/register                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_HOST</td>
+                    <td>
+                        net.crmnew.com                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_COOKIE</td>
+                    <td>
+                        PHPSESSID=bqja2dpg216u56ku7lk8ukhfp5                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_ACCEPT_LANGUAGE</td>
+                    <td>
+                        zh-CN,zh;q=0.9                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_ACCEPT_ENCODING</td>
+                    <td>
+                        gzip, deflate                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_ACCEPT</td>
+                    <td>
+                        */*                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_CONTENT_TYPE</td>
+                    <td>
+                        application/x-www-form-urlencoded; charset=UTF-8                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_CONTENT_LENGTH</td>
+                    <td>
+                        256                    </td>
+                </tr>
+                                <tr>
+                    <td>HTTP_CONNECTION</td>
+                    <td>
+                        keep-alive                    </td>
+                </tr>
+                                <tr>
+                    <td>FCGI_ROLE</td>
+                    <td>
+                        RESPONDER                    </td>
+                </tr>
+                                <tr>
+                    <td>PHP_SELF</td>
+                    <td>
+                        /index.php/client/register/insert                    </td>
+                </tr>
+                                <tr>
+                    <td>REQUEST_TIME_FLOAT</td>
+                    <td>
+                        1527146030.8684                    </td>
+                </tr>
+                                <tr>
+                    <td>REQUEST_TIME</td>
+                    <td>
+                        1527146030                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+                <table>
+                        <caption>Environment Variables<small>empty</small></caption>
+                    </table>
+                <table>
+                        <caption>ThinkPHP Constants</caption>
+            <tbody>
+                                <tr>
+                    <td>APP_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\public/../apps/                    </td>
+                </tr>
+                                <tr>
+                    <td>THINK_VERSION</td>
+                    <td>
+                        5.0.5                    </td>
+                </tr>
+                                <tr>
+                    <td>THINK_START_TIME</td>
+                    <td>
+                        1527146030.8704                    </td>
+                </tr>
+                                <tr>
+                    <td>THINK_START_MEM</td>
+                    <td>
+                        157208                    </td>
+                </tr>
+                                <tr>
+                    <td>EXT</td>
+                    <td>
+                        .php                    </td>
+                </tr>
+                                <tr>
+                    <td>CONF_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\framework/../configs/                    </td>
+                </tr>
+                                <tr>
+                    <td>DS</td>
+                    <td>
+                        \                    </td>
+                </tr>
+                                <tr>
+                    <td>THINK_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\framework\                    </td>
+                </tr>
+                                <tr>
+                    <td>LIB_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\framework\library\                    </td>
+                </tr>
+                                <tr>
+                    <td>CORE_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\framework\library\think\                    </td>
+                </tr>
+                                <tr>
+                    <td>TRAIT_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\framework\library\traits\                    </td>
+                </tr>
+                                <tr>
+                    <td>ROOT_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\                    </td>
+                </tr>
+                                <tr>
+                    <td>EXTEND_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\extend\                    </td>
+                </tr>
+                                <tr>
+                    <td>VENDOR_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\vendor\                    </td>
+                </tr>
+                                <tr>
+                    <td>RUNTIME_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\runtime\                    </td>
+                </tr>
+                                <tr>
+                    <td>LOG_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\runtime\log\                    </td>
+                </tr>
+                                <tr>
+                    <td>CACHE_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\runtime\cache\                    </td>
+                </tr>
+                                <tr>
+                    <td>TEMP_PATH</td>
+                    <td>
+                        D:\phpStudy\WWW\crm-new\runtime\temp\                    </td>
+                </tr>
+                                <tr>
+                    <td>CONF_EXT</td>
+                    <td>
+                        .php                    </td>
+                </tr>
+                                <tr>
+                    <td>ENV_PREFIX</td>
+                    <td>
+                        PHP_                    </td>
+                </tr>
+                                <tr>
+                    <td>IS_CLI</td>
+                    <td>
+                        false                    </td>
+                </tr>
+                                <tr>
+                    <td>IS_WIN</td>
+                    <td>
+                        true                    </td>
+                </tr>
+                            </tbody>
+                    </table>
+            </div>
+    
+    <div class="copyright">
+        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
+        <span>V5.0.5</span> 
+        <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
+    </div>
+        <script>
+        var LINE = 103;
+
+        function $(selector, node){
+            var elements;
+
+            node = node || document;
+            if(document.querySelectorAll){
+                elements = node.querySelectorAll(selector);
+            } else {
+                switch(selector.substr(0, 1)){
+                    case '#':
+                        elements = [node.getElementById(selector.substr(1))];
+                        break;
+                    case '.':
+                        if(document.getElementsByClassName){
+                            elements = node.getElementsByClassName(selector.substr(1));
+                        } else {
+                            elements = get_elements_by_class(selector.substr(1), node);
+                        }
+                        break;
+                    default:
+                        elements = node.getElementsByTagName();
+                }
+            }
+            return elements;
+
+            function get_elements_by_class(search_class, node, tag) {
+                var elements = [], eles, 
+                    pattern  = new RegExp('(^|\\s)' + search_class + '(\\s|$)');
+
+                node = node || document;
+                tag  = tag  || '*';
+
+                eles = node.getElementsByTagName(tag);
+                for(var i = 0; i < eles.length; i++) {
+                    if(pattern.test(eles[i].className)) {
+                        elements.push(eles[i])
+                    }
+                }
+
+                return elements;
+            }
+        }
+
+        $.getScript = function(src, func){
+            var script = document.createElement('script');
+            
+            script.async  = 'async';
+            script.src    = src;
+            script.onload = func || function(){};
+            
+            $('head')[0].appendChild(script);
+        }
+
+        ;(function(){
+            var files = $('.toggle');
+            var ol    = $('ol', $('.prettyprint')[0]);
+            var li    = $('li', ol[0]);   
+
+            // 短路径和长路径变换
+            for(var i = 0; i < files.length; i++){
+                files[i].ondblclick = function(){
+                    var title = this.title;
+
+                    this.title = this.innerHTML;
+                    this.innerHTML = title;
+                }
+            }
+
+            // 设置出错行
+            var err_line = $('.line-' + LINE, ol[0])[0];
+            err_line.className = err_line.className + ' line-error';
+
+            $.getScript('//cdn.bootcss.com/prettify/r298/prettify.min.js', function(){
+                prettyPrint();
+
+                // 解决Firefox浏览器一个很诡异的问题
+                // 当代码高亮后，ol的行号莫名其妙的错位
+                // 但是只要刷新li里面的html重新渲染就没有问题了
+                if(window.navigator.userAgent.indexOf('Firefox') >= 0){
+                    ol[0].innerHTML = ol[0].innerHTML;
+                }
+            });
+
+        })();
+    </script>
+    </body>
+</html>
