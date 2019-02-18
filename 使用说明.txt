@@ -1,0 +1,26 @@
+1、打开includes文件夹下的config.php文件修改数据库连接名称
+
+<?php
+$db_host='localhost'; *MYSQL连接 
+$db_user='root';      *MYSQL账号
+$db_password='root';  *MYSQL密码
+$db_name='oss_list';   *数据库名称
+$db_prefix='oss_';    *数据库表前缀
+?>
+
+2、修改好之后，新建立一个osslite数据库（数据库名称可自己更换，这里为举列），把DATA文件夹下的osslite.sql丢入查询，我们的数据库就建立好了。
+
+刷新一次前台只要连接正确，应该可以打开了。
+
+3、后台登录
+http://localhost/system.php
+
+管理员账号：admin  密码：yhadmin123
+
+4、关于充值支付方面，请自行打开pay文件夹修改（最终完成与MOOVpay对接）。
+
+
+
+PHP5.5.38  正常 
+
+

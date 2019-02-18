@@ -1,0 +1,80 @@
+
+
+
+
+.containerflash {
+   
+   
+	 
+
+
+  padding: 0px; 
+  height: 550px;
+
+  width:100%; overflow:hidden;MARGIN: 0px auto; position:relative  ; z-index:1
+
+	
+	
+	
+	 }
+#featured { 
+	
+	background: #000 url(../images/banner/loading.gif) no-repeat center center;
+
+	
+  padding: 0px;
+  height: 550px;
+
+    position: absolute;
+    top: 0;
+width: 1920px;height: 550px;Z-INDEX: 0;   TOP: 0px; LEFT: 50% ;  margin:auto; margin-left:-960Px;
+
+	
+	 }
+	 #featured img{ width:1920px; height:550px;position: absolute;
+    top: 0;  Z-INDEX: 0;   TOP: 0px;  margin:auto;
+    display: none; }
+	
+	
+	
+	
+	
+	 #featured  .num {
+	 POSITION: absolute; TOP: 370px; HEIGHT: 19px;  z-index:55; left:49%;
+}
+ #featured  .num SPAN {
+	DISPLAY: inline-block; BACKGROUND: url(../images/banner/imgPlayer.png) no-repeat -19px -84px; MARGIN: 0px 2px; OVERFLOW: hidden; WIDTH: 14px; CURSOR: pointer; LINE-HEIGHT: 0; HEIGHT: 14px
+}
+ #featured  .num SPAN.on {
+	BACKGROUND-POSITION: 1px -84px
+}
+ #featured  .num .lc {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url() no-repeat; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 13px; PADDING-TOP: 3px; HEIGHT: 16px
+}
+ #featured  .num .mc {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url() no-repeat; FLOAT: left; PADDING-BOTTOM: 0px;  PADDING-TOP: 3px; HEIGHT: 16px
+}
+ #featured  .num .rc {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url() no-repeat; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 13px; PADDING-TOP: 3px; HEIGHT: 16px
+}
+ #featured  .num .mc {
+	BACKGROUND: url(../images/banner/mc.png) repeat-x
+}
+ #featured  .num .rc {
+	BACKGROUND: url() no-repeat
+}
+ #featured  #numInner {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 0px; PADDING-TOP: 3px; POSITION: absolute; TOP: 360px; TEXT-ALIGN: center
+}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

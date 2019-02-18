@@ -1,0 +1,24 @@
+﻿<DIV id=header>
+  <DIV class=top>
+    <IMG class=pngfix id=logo src="/templates/kele/img/logo.png">
+    <UL class="q_nav fr">
+      <LI>
+        <P class=fl><A class="icon i_reg" title=Register href="en_reg.php">Register</A> <A class="icon i_log" title=LOGIN href="en_login.php">Login</A> <A class="icon i_pay" title="Account recharge" href="en_pay.php">recharge</A> </P>
+        <P class=fr><A title=中文繁體 href="/">中文繁體</A>| <A title=ENGLISH href="en_index.php">ENGLISH</A></P>
+      </LI>
+    </UL>
+  </DIV>
+  <UL id=nav>
+    <LI class=menu>
+    	<!--{if $top_menu}-->
+    	<!--{foreach item=menu from=$top_menu}-->
+    		<A class="spe" href="{if $menu.link=='/'}en_index.php{elseif $menu.link=='card.php'}en_content.php?id=14{else}en_{$menu.link}{/if}" {if $menu.target==1}target="_blank"{/if}>{if $menu.name=='首頁'}Home{elseif $menu.name=='遊戲中心'}Game{elseif $menu.name=='遊戲動態'}News{elseif $menu.name=='用戶中心'}Center{elseif $menu.name=='充值中心'}Recharge{elseif $menu.name=='新手禮包'}About{/if}</A>
+    	<!--{/foreach}-->
+    	<!--{/if}-->
+    </LI>
+    <LI class=s_msg>
+      <P class="fl icon i_laba">Hello! If you encounter any problems in the game, you can consult our online customer service to help you solve it.</P>
+      <P class=fr></P>
+    </LI>
+  </UL>
+</DIV>

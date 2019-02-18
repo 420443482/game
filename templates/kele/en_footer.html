@@ -1,0 +1,13 @@
+﻿<DIV id=footer>
+	<!--{if $bottom_menu}-->
+	<P>
+	<!--{foreach item=menu from=$bottom_menu name=bottom_menu}-->
+  <a href="en_{$menu.link}" {if $menu.target==1}target="_blank"{/if}>{if $menu.name=='關於我們'}About{elseif $menu.name=='聯系我們'}contactus{elseif $menu.name=='家長監護'}Guardianship{elseif $menu.name=='糾紛處理'}Dispute handling{/if} </a>
+  <!--{if !$smarty.foreach.bottom_menu.last}-->┊<!--{/if}-->
+	<!--{/foreach}-->
+  </P>
+	<!--{/if}-->  
+  <P>
+  Copyright 2018-2020 XB Markets Game All rights reserved 
+  </P>
+</DIV>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!--{$config.site_name}--></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<!--{$config.site_keywords|escape:html}-->" />
+<meta name="description" content="<!--{$config.site_description|escape:html}-->" />
+<LINK href="/templates/kele/img/reset.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/en_common.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/main.css" type=text/css rel=stylesheet>
+<!--[if lte IE 6]>
+<script src="/templates/kele/img/fixPNG.js"></script>
+<script type="text/javascript">
+DD_belatedPNG.fix('.pngfix');
+</script>
+<![endif]--> 
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/jquery.calendar.js"></script>
+<link href="styles/calendars.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#member_birthday").cld();
+});
+</script>
+</head>
+<body>
+<!--{include file="en_header.html"}-->
+ 
+<DIV class="mainContent clearfix">
+	<div class="left box uc">
+		<h3>
+			<strong class="fl icon_02">User center</strong>
+		</h3>
+		<div class="margin">
+			<div class="msg">
+				<strong>Your novice card receipt record</strong>
+			</div>
+			<div class="xsk_content">
+				<h2>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				  <tr>
+					<td width="15%" align="center">Name</td>
+					<td align="center">Card number</td>
+					<td width="25%" align="center">Get time</td>
+				  </tr>
+				</table>
+				</h2>
+				<ul>
+					<!--{foreach from=$cardlog item=log}-->
+					<li>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						  <tr>
+							<td width="15%" align="center"><!--{$log.name}--></td>
+							<td align="center"><!--{$log.number}--></td>
+							<td width="25%" align="center"><!--{$log.get_time}--></td>
+						  </tr>
+					  </table>
+					</li>
+					<!--{foreachelse}-->
+					<li>You don't have a novice card to get a record at the moment。</li>
+					<!--{/foreach}-->
+				</ul>
+				<div align="right"><!--{$pagebar}--></div>
+		  </div>
+		</div>
+	</div>
+  <DIV class=sidebar>
+    <DIV class="" id=uc_box>
+      <!--{include file="en_part_login.html"}-->
+    </DIV>
+    <DIV class="box latest_news">
+      <!--{include file="en_part_faq.html"}-->
+    </DIV>
+    <DIV class="box cs">
+      <DIV class=margin>
+      	<!--{include file="en_part_service.html"}-->
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>
+
+<!--{include file="en_footer.html"}-->
+</body>
+</html>

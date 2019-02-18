@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!--{$config.site_name}--></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<!--{$config.site_keywords|escape:html}-->" />
+<meta name="description" content="<!--{$config.site_description|escape:html}-->" />
+<LINK href="/templates/kele/img/reset.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/en_common.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/news.css" type=text/css rel=stylesheet>
+<!--[if lte IE 6]>
+<script src="/templates/kele/img/fixPNG.js"></script>
+<script type="text/javascript">
+DD_belatedPNG.fix('.pngfix');
+</script>
+<![endif]--> 
+<script type="text/javascript" src="scripts/jquery.js"></script>
+</head>
+<body>
+<!--{include file="en_header.html"}-->
+ 
+<DIV class="mainContent clearfix">
+  <div class="left box newlist">
+     <h3><strong class="fl icon_07"><!--{if $channel_info.name=='關於我們'}About{elseif $channel_info.name=='聯繫我們'}Contact us{elseif $channel_info.name=='家長監護'}Guardianship of parents{elseif $channel_info.name=='糾紛處理'}Dispute handling{else}{$channel_info.name}{/if}--></strong></h3>
+    <DIV class=margin>
+    	<DIV class=last_content>
+			  <H2><!--{$content_info.title_en}--></H2>
+			  <DIV class=line><!--{$content_info.text_en}--></DIV>
+			  <hr size="1" style="border:1px dotted #AAA; width:98%;">
+			  <div style="padding-left:10px;">
+<!--{if $prev!=''}-->
+<div>The last one：
+<a href="en_<!--{$prev.url}-->" {if $content.target}target="_blank"{/if}><!--{$prev.title_en}--></a>
+</div>
+<!--{/if}-->
+<!--{if $next!=''}-->
+<div>
+Next one：
+<a href="en_<!--{$next.url}-->" {if $content.target}target="_blank"{/if}><!--{$next.title_en}--></a>
+</div>
+<!--{/if}-->
+			  </div>
+			</DIV>
+    </DIV>
+  </DIV>
+  <DIV class=sidebar>
+    <DIV class="" id=uc_box>
+      <!--{include file="en_part_login.html"}-->
+    </DIV>
+    <DIV class="box latest_news">
+      <!--{include file="en_part_faq.html"}-->
+    </DIV>
+    <DIV class="box cs">
+      <DIV class=margin>
+      	<!--{include file="en_part_service.html"}-->
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>
+
+<!--{include file="en_footer.html"}-->
+</body>
+</html>

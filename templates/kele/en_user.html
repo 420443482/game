@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!--{$config.site_name}--></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<!--{$config.site_keywords|escape:html}-->" />
+<meta name="description" content="<!--{$config.site_description|escape:html}-->" />
+<LINK href="/templates/kele/img/reset.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/en_common.css" type=text/css rel=stylesheet>
+<LINK href="/templates/kele/img/main.css" type=text/css rel=stylesheet>
+<!--[if lte IE 6]>
+<script src="/templates/kele/img/fixPNG.js"></script>
+<script type="text/javascript">
+DD_belatedPNG.fix('.pngfix');
+</script>
+<![endif]--> 
+<script type="text/javascript" src="scripts/jquery.js"></script>
+</head>
+<body>
+<!--{include file="en_header.html"}-->
+ 
+<DIV class="mainContent clearfix">
+	<div class="left box uc">
+		<h3>
+			<strong class="fl icon_02">User center</strong>
+		</h3>
+		<div class="margin">
+			<div class="msg">
+				<strong>For your account security, please improve your security settings.。</strong>
+			</div>
+			<div class="uc_link">
+				<dl>
+					<dt class="d1">Account</dt>
+					<dd>
+						<a href="en_pay.php">Recharge</a> <a href="en_user.php?action=paylog">Recharge</a>
+					</dd>
+					<dt class="d2">Security： </dt>
+					<dd>
+						<a href="en_user.php?action=setpass" class="c_r">ModifyPWD</a> <a href="en_user.php?action=setsec">SetSecret</a>
+					</dd>
+					<dt class="d3">Setting： </dt>
+					<dd>
+						<a href="en_user.php?action=setuser">Perfect</a> <a href="en_user.php?action=setcer">Antisetting</a> <a href="en_user.php?action=card">Mycard</a>
+					</dd>
+				</dl>
+			</div>
+			<h4 class="played">
+				<strong>The most recently played games：</strong></h4>
+				<ul class="iplay clearfix">
+					<!--{foreach from=$gamelog item=log}-->
+					<li>
+						<a href="en_game.php?action=server_list&game_id=<!--{$log.game_id}-->"><img src="uploads/<!--{$log.game_logo}-->"></a>
+						<div>
+						<p class="p1"><strong><!--{$log.server_name}--></strong></p>
+						<p class="p2"></p>
+						<a class="ipay" href="en_pay.php?game_id=<!--{$log.game_id}-->">Recharge</a>
+						</div>
+					</li>
+					<!--{foreachelse}-->
+					<li class="noyet">You have not played games yet, you can be in<a href="en_game.php">Game center</a>Choose the game you like!</li>
+					<!--{/foreach}-->
+				</ul>
+			<!--
+			<h4 class="liked">
+				<strong>猜您可能會喜歡：</strong></h4>
+				<ul class="ilike">
+					<li></li>
+				</ul>
+			-->
+		</div>
+	</div>
+  <DIV class=sidebar>
+    <DIV class="" id=uc_box>
+      <!--{include file="en_part_login.html"}-->
+    </DIV>
+    <DIV class="box latest_news">
+      <!--{include file="en_part_faq.html"}-->
+    </DIV>
+    <DIV class="box cs">
+      <DIV class=margin>
+      	<!--{include file="en_part_service.html"}-->
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>
+
+<!--{include file="en_footer.html"}-->
+</body>
+</html>
